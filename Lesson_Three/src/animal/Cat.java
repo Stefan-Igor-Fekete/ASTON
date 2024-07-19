@@ -1,19 +1,21 @@
 package animal;
 
-import animal.Animal;
 import tableware.Bowl;
 
 public class Cat extends Animal {
-
     private static int catCount = 0;
     private static final int MAX_RUN_DISTANCE = 200;
     private boolean satiety;
+
+    public Cat() {
+    }
 
     public Cat(String name) {
         super(name);
         catCount++;
         this.satiety = false;
     }
+
 
     @Override
     public void run(int distance) {

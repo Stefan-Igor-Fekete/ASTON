@@ -1,12 +1,12 @@
 package animal;
 
-import animal.Animal;
-
 public class Dog extends Animal {
-
     private static int dogCount = 0;
     private static final int MAX_RUN_DISTANCE = 500;
     private static final int MAX_SWIM_DISTANCE = 10;
+
+    public Dog() {
+    }
 
     public Dog(String name) {
         super(name);

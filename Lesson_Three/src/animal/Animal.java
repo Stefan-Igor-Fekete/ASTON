@@ -1,6 +1,6 @@
 package animal;
 
-public class Animal {
+public abstract class Animal {
     public String name;
     protected static int animalCount = 0;
 
@@ -12,13 +12,9 @@ public class Animal {
         animalCount++;
     }
 
-    public void run(int distance) {
-        System.out.println(name + " пробежал " + distance + " м.");
-    }
+    public abstract void run(int distance);
 
-    public void swim(int distance) {
-        System.out.println(name + " проплыл " + distance + " м.");
-    }
+    public abstract void swim(int distance);
 
     public static int getAnimalCount() {
         return animalCount;

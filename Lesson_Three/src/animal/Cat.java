@@ -16,10 +16,9 @@ public class Cat extends Animal {
         this.satiety = false;
     }
 
-
     @Override
     public void run(int distance) {
-        if (distance <= MAX_RUN_DISTANCE) {
+        if (distance <= MAX_RUN_DISTANCE & distance > 0) {
             System.out.println(name + " пробежал " + distance + " м.");
         } else {
             System.out.println(name + " не может пробежать " + distance + " м.");

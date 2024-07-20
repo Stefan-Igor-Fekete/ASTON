@@ -17,7 +17,7 @@ public class Main {
         Figure triangle = new Triangle("Треугольник",4, 4, 4, "Red", "Blue");
 
         System.out.println("\nПервое задание:");
-        dogBobik.run(150);
+        dogBobik.run(-3);
         dogBobik.swim(5);
         Cat cat = new Cat();
         catMurzik.run(150);

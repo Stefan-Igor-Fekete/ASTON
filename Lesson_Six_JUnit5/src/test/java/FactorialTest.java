@@ -1,45 +1,32 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import calculations.FactorialCalculation;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Test;
 
 public class FactorialTest {
-    @ParameterizedTest
-    @ValueSource(ints = {0, 1})
-    void testFactorialOfZeroAndOne(int number) {
-        assertEquals(1, FactorialCalculation.factorialCalculate(number));
-    }
 
     @ParameterizedTest
-    @ValueSource(ints = {2})
-    void testFactorialOfTwo(int number) {
-        assertEquals(2, FactorialCalculation.factorialCalculate(number));
+    @CsvSource({
+            "0, 1",
+            "1, 1",
+            "5, 120",
+            "19, 121645100408832000",
+            "20, 2432902008176640000"
+    })
+    public void testFactorial(int input, long expected) {
+        long result = FactorialCalculation.factorial(input);
+        assertEquals(expected, result, "Factorial of " + input + " should be " + expected);
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {3})
-    void testFactorialOfThree(int number) {
-        assertEquals(6, FactorialCalculation.factorialCalculate(number));
+    @Test
+    public void testFactorialNegativeNumber() {
+        assertThrows(IllegalArgumentException.class, () -> FactorialCalculation.factorial(-1));
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {4})
-    void testFactorialOfFour(int number) {
-        assertEquals(24, FactorialCalculation.factorialCalculate(number));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {5})
-    void testFactorialOfFive(int number) {
-        assertEquals(120, FactorialCalculation.factorialCalculate(number));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {-1, -5, -10})
-    void testFactorialOfNegativeNumbers(int number) {
-        assertThrows(IllegalArgumentException.class, () -> FactorialCalculation.factorialCalculate(number));
+    @Test
+    public void testFactorialOverflow() {
+        assertThrows(ArithmeticException.class, () -> FactorialCalculation.factorial(21));
     }
 }

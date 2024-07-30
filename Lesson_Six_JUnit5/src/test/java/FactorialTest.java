@@ -17,7 +17,7 @@ public class FactorialTest {
     })
     public void testFactorial(int input, long expected) {
         long result = FactorialCalculation.factorial(input);
-        assertEquals(expected, result, "Factorial of " + input + " should be " + expected);
+        assertEquals(expected, result, "Факториал числа: " + input + " должен быть равен - " + expected);
     }
 
     @Test

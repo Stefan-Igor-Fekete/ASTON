@@ -9,15 +9,20 @@ import framework.enums.MtsPaymentCategory;
 import framework.utils.StringUtils;
 import org.openqa.selenium.By;
 
+import static framework.base.BaseElement.switchToFrameByFrameIndexAndWait;
+
 public class MtsMainPage extends BasePage {
     private static String mtsMainPage = "Главная страница МТС";
+    private int frameIndex = 0;
     private static Label mtsOnlinePayLabel = new Label(By.xpath("//div[@class='pay__wrapper']//h2"),
             "Поле онлайн платежей");
     private static Label paymentsLogo = new Label(By.xpath("//div[@class='pay__partners']"),
             "Поле логотипов платёжных сервисов");
+    private static Label moneyCapacityLabel = new Label(By.xpath("(//div[@class='payment-page__order-description pay-description']//span)[1]"),
+            "Количество введённых денег");
     private static TextField depositAmount = new TextField(By.xpath("//input[@id='connection-sum']"),
             "Поле: введите сумму");
-    private static TextField enterPhoneField = new TextField(By.xpath("//input[@id='connection-phone']"),
+    private static TextField phoneField = new TextField(By.xpath("//input[@id='connection-phone']"),
             "Поле: введите номер");
     private static Button categoryPaymentList = new Button(By.xpath("//button[@class='select__header']"),
             "Кнопка выбора категории для оплаты");
@@ -39,8 +44,7 @@ public class MtsMainPage extends BasePage {
     }
 
     public String getOnlinePayLabelText() {
-        String getLabelText = mtsOnlinePayLabel.getTextFrom();
-        return StringUtils.lineWithoutHyphenation(getLabelText);
+        return StringUtils.lineWithoutHyphenation(mtsOnlinePayLabel.getTextFrom());
     }
 
     public boolean paymentsLogoIsDisplayed() {
@@ -51,16 +55,19 @@ public class MtsMainPage extends BasePage {
         detailsAboutServices.waitDisplayedAndClick();
     }
 
-    public void enterNumber(String phoneNumber) {
-        enterPhoneField.sendText(phoneNumber);
-    }
-
-    public void clickContinueButton() {
+    public void makeOrderForFillTheBalance(String phoneNumber, String moneyAmount) {
+        phoneField.sendText(phoneNumber);
+        depositAmount.sendText(moneyAmount);
         continueButton.waitAndClick();
     }
 
-    public String getMessageFromError() {
-        return depositAmount.getTextFromError();
+    public String getMoneyAmountText() {
+        String abc = moneyCapacityLabel.getTextFrom();
+        return abc.replaceAll("[^0-9.]", "");
+    }
+
+    public void switchToFrame() {
+        switchToFrameByFrameIndexAndWait(frameIndex);
     }
 
     public void chooseNeededCategory() {

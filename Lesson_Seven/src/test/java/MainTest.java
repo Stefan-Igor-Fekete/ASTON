@@ -8,8 +8,8 @@ import pages.ServicesInformationPage;
 public class MainTest extends BaseTest {
     private String onlinePayText = "Онлайн пополнение без комиссии";
     private String servicePage = "Порядок оплаты и безопасность интернет платежей";
-    private String textFromError = "Заполните это поле.";
     private String phoneNumber = "(29)777-77-77";
+    private String moneyAmount = "100.00";
     MtsMainPage mtsMainPage = new MtsMainPage();
     ServicesInformationPage servicesInformationPage = new ServicesInformationPage();
 
@@ -17,7 +17,7 @@ public class MainTest extends BaseTest {
     @Test(priority = 1)
     public void firstTaskTest() {
         mtsMainPage.clickCookiesButton();
-        Assert.assertTrue(mtsMainPage.isOnPage(),"Вы не на главной странице сайта МТС");
+        Assert.assertTrue(mtsMainPage.isOnPage(), "Вы не на главной странице сайта МТС");
         Assert.assertEquals(mtsMainPage.getOnlinePayLabelText(), onlinePayText);
     }
 
@@ -39,8 +39,8 @@ public class MainTest extends BaseTest {
     @Test(priority = 4)
     public void fourthTaskTest() {
         mtsMainPage.chooseNeededCategory();
-        mtsMainPage.enterNumber(phoneNumber);
-        mtsMainPage.clickContinueButton();
-        Assert.assertEquals(mtsMainPage.getMessageFromError(), textFromError);
+        mtsMainPage.makeOrderForFillTheBalance(phoneNumber, moneyAmount);
+        mtsMainPage.switchToFrame();
+        Assert.assertEquals(mtsMainPage.getMoneyAmountText(), moneyAmount);
     }
 }

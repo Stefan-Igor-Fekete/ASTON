@@ -1,9 +1,7 @@
 package framework.base;
 
 import framework.DriverStart;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,7 +9,6 @@ import java.time.Duration;
 import java.util.List;
 
 public class BaseElement {
-    Actions action = new Actions(driverStart.getDriver());
     static Duration WAIT_TIME = Duration.ofSeconds(10);
     static DriverStart driverStart = DriverStart.getInstance();
 
@@ -23,27 +20,13 @@ public class BaseElement {
         this.name = name;
     }
 
+    public boolean isDisplayed() {
+        return findElement() != null;
+    }
+
     protected WebElement findElement() {
         waitElementDisplayed();
         return driverStart.getDriver().findElement(locator);
-    }
-
-    public String getAttribute(String attribute) {
-        return findElement().getAttribute(attribute);
-    }
-
-    protected WebElement waitElementDisplayed() {
-        WebDriverWait waiter = new WebDriverWait(driverStart.getDriver(), WAIT_TIME);
-        return waiter.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    protected WebElement waitElementClicked() {
-        WebDriverWait waiter = new WebDriverWait(driverStart.getDriver(), WAIT_TIME);
-        return waiter.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public boolean isDisplayed() {
-        return findElement() != null;
     }
 
     public void waitAndClick() {
@@ -54,29 +37,18 @@ public class BaseElement {
         waitElementDisplayed().click();
     }
 
-    public List<WebElement> findElements(WebElement element) {
-        return driverStart.getDriver().findElements((By) element);
+    protected WebElement waitElementDisplayed() {
+        WebDriverWait waiter = new WebDriverWait(driverStart.getDriver(), WAIT_TIME);
+        return waiter.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    public WebElement findElement(By xpath) {
-        return driverStart.getDriver().findElement(xpath);
+    protected WebElement waitElementClicked() {
+        WebDriverWait waiter = new WebDriverWait(driverStart.getDriver(), WAIT_TIME);
+        return waiter.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public String getTextFrom() {
         return findElement().getText();
-    }
-
-    public String getTextFromActiveElement() {
-        WebElement activeElement = driverStart.getDriver().switchTo().activeElement();
-        return activeElement.getAttribute("validationMessage");
-    }
-
-    public void hoverElement() {
-        action.moveToElement(findElement()).perform();
-    }
-
-    public static void switchToFrameByFrameIndex(int index) {
-        driverStart.getDriver().switchTo().frame(index);
     }
 
     public static void switchToFrameByFrameIndexAndWait(int index) {
@@ -87,5 +59,4 @@ public class BaseElement {
         });
         driverStart.getDriver().switchTo().frame(index);
     }
-
 }

@@ -1,10 +1,7 @@
 package framework.enums;
 
 public enum MtsPaymentCategory {
-    COMMUNICATION_SERVICES("Услуги связи"),
-    HOME_INTERNET("Домашний интренет"),
-    CREDIT("Рассрочка"),
-    DEBT("Задолженность");
+    COMMUNICATION_SERVICES("Услуги связи");
 
     private final String menuElementLocator;
 

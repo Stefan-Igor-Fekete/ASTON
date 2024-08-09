@@ -29,6 +29,10 @@ public class DriverStart {
     }
 
     public static void quit() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+            driver = null; // Обнуляем ссылку на WebDriver
+            driverStartInstance = null;
+        }
     }
 }

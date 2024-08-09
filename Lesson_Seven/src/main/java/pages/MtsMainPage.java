@@ -40,11 +40,12 @@ public class MtsMainPage extends BasePage {
     }
 
     public void clickCookiesButton() {
-        cookieOkButton.waitDisplayedAndClick();
+        cookieOkButton.waitAndClick();
     }
 
     public String getOnlinePayLabelText() {
-        return StringUtils.lineWithoutHyphenation(mtsOnlinePayLabel.getTextFrom());
+        String getLabelText = mtsOnlinePayLabel.getTextFrom();
+        return StringUtils.lineWithoutHyphenation(getLabelText);
     }
 
     public boolean paymentsLogoIsDisplayed() {
@@ -61,6 +62,11 @@ public class MtsMainPage extends BasePage {
         continueButton.waitAndClick();
     }
 
+    public void chooseNeededCategory() {
+        categoryPaymentList.waitAndClick();
+        categoryList.waitAndClick();
+    }
+
     public String getMoneyAmountText() {
         String abc = moneyCapacityLabel.getTextFrom();
         return abc.replaceAll("[^0-9.]", "");
@@ -68,10 +74,5 @@ public class MtsMainPage extends BasePage {
 
     public void switchToFrame() {
         switchToFrameByFrameIndexAndWait(frameIndex);
-    }
-
-    public void chooseNeededCategory() {
-        categoryPaymentList.waitAndClick();
-        categoryList.waitAndClick();
     }
 }

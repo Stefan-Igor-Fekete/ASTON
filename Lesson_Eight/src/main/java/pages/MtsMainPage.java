@@ -8,12 +8,11 @@ import framework.elements.TextField;
 import framework.enums.MtsPaymentCategory;
 import org.openqa.selenium.By;
 
-import static framework.base.BaseElement.refreshPage;
 import static framework.base.BaseElement.switchToFrameByFrameIndexAndWait;
 
 public class MtsMainPage extends BasePage {
     private static String mtsMainPage = "Главная страница МТС";
-    private int frameIndex = 0;
+    private int frameIndex = 1;
     private static Label moneyCapacityIframeLabel = new Label(By.xpath("(//div[@class='payment-page__order-description pay-description']//span)[1]"),
             "Количество введённых денег на панели iFrame");
     private static Label clientNumberIframeLabel = new Label(By.xpath("//div[@class='pay-description__text']"),
@@ -77,10 +76,6 @@ public class MtsMainPage extends BasePage {
 
     public void clickCookiesButton() {
         cookieOkButton.waitDisplayedAndClick();
-    }
-
-    public void refreshMtsMainPage() {
-        refreshPage();
     }
 
     public void chooseCommunicationServiceCategory() {

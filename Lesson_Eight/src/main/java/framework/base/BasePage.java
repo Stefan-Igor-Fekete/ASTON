@@ -13,10 +13,6 @@ public class BasePage {
         this.name = name;
     }
 
-    public void waitForOpen() {
-        baseElement.waitElementDisplayed();
-    }
-
     public boolean isOnPage() {
 
         return baseElement.isDisplayed();

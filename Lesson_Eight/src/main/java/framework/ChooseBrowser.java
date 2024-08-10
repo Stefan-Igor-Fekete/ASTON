@@ -7,9 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ChooseBrowser {
-    private static WebDriver driver;
-
     public static WebDriver getBrowser(String browser) {
+        WebDriver driver;
         switch (ListOfBrowsers.valueOf(browser)) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
@@ -24,6 +23,7 @@ public class ChooseBrowser {
                     throw new Exception("No such browser");
                 } catch (Exception e) {
                     e.printStackTrace();
+                    driver = null;
                 }
         }
         return driver;

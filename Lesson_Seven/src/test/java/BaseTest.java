@@ -5,16 +5,18 @@ import pages.MtsMainPage;
 import pages.ServicesInformationPage;
 
 public class BaseTest {
-    protected MtsMainPage mtsMainPage = new MtsMainPage();
-    protected ServicesInformationPage servicesInformationPage = new ServicesInformationPage();
+    protected MtsMainPage mtsMainPage;
+    protected ServicesInformationPage servicesInformationPage;
 
     @BeforeMethod
     public void setUp() {
         DriverStart.getInstance();
+        mtsMainPage = new MtsMainPage();
+        servicesInformationPage = new ServicesInformationPage();
         mtsMainPage.clickCookiesButton();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
         DriverStart.quit();
     }

@@ -13,7 +13,7 @@ import static framework.base.BaseElement.switchToFrameByFrameIndexAndWait;
 
 public class MtsMainPage extends BasePage {
     private static String mtsMainPage = "Главная страница МТС";
-    private int frameIndex = 0;
+    private int frameIndex = 1;
     private static Label mtsOnlinePayLabel = new Label(By.xpath("//div[@class='pay__wrapper']//h2"),
             "Поле онлайн платежей");
     private static Label paymentsLogo = new Label(By.xpath("//div[@class='pay__partners']"),
@@ -67,12 +67,12 @@ public class MtsMainPage extends BasePage {
         categoryList.waitAndClick();
     }
 
+    public void switchToFrame() {
+        switchToFrameByFrameIndexAndWait(frameIndex);
+    }
+
     public String getMoneyAmountText() {
         String abc = moneyCapacityLabel.getTextFrom();
         return abc.replaceAll("[^0-9.]", "");
-    }
-
-    public void switchToFrame() {
-        switchToFrameByFrameIndexAndWait(frameIndex);
     }
 }

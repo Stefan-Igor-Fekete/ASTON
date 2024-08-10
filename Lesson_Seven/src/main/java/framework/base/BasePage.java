@@ -1,7 +1,6 @@
 package framework.base;
 
 public class BasePage {
-
     private BaseElement baseElement;
     private String name;
 

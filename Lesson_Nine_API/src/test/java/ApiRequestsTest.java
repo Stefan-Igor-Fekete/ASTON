@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import requestsExecute.PostmanApiRequests;
+import utils.CollectionsUtils;
 import utils.LoadProperties;
 
 import java.io.IOException;
@@ -14,18 +15,17 @@ import java.util.Map;
 import java.util.Set;
 
 public class ApiRequestsTest {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static Set<String> dynamicFields = CollectionsUtils.getDynamicFields();
+    private static SoftAssert softAssert = new SoftAssert();
+    private static String postRequestBody = "{\n    \"test\": \"value\"\n}";
+    private static String rawPostPutPatchRequestBody = "This is expected to be sent back as part of response body.";
 
     @Test
     public void testGetRequest() throws IOException, JSONException {
         JsonNode expectedJson = objectMapper.readTree(LoadProperties.readJsonFromFile("expectedResponses.json", "getResponseParams"));
         Response response = PostmanApiRequests.sendGetRequest();
         JsonNode actualJson = objectMapper.readTree(response.getBody().asString());
-        SoftAssert softAssert = new SoftAssert();
-        Set<String> dynamicFields = new HashSet<>();
-        dynamicFields.add("x-forwarded-proto");
-        dynamicFields.add("x-amzn-trace-id");
-        dynamicFields.add("postman-token");
         Iterator<Map.Entry<String, JsonNode>> fields = expectedJson.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();
@@ -45,14 +45,8 @@ public class ApiRequestsTest {
     @Test
     public void testPostRequest() throws IOException, JSONException {
         JsonNode expectedJson = objectMapper.readTree(LoadProperties.readJsonFromFile("expectedResponses.json", "postResponse"));
-        String requestBody = "{\n    \"test\": \"value\"\n}";
-        Response response = PostmanApiRequests.sendPostRequest(requestBody);
+        Response response = PostmanApiRequests.sendPostRequest(postRequestBody);
         JsonNode actualJson = objectMapper.readTree(response.getBody().asString());
-        SoftAssert softAssert = new SoftAssert();
-        Set<String> dynamicFields = new HashSet<>();
-        dynamicFields.add("x-forwarded-proto");
-        dynamicFields.add("x-amzn-trace-id");
-        dynamicFields.add("postman-token");
         Iterator<Map.Entry<String, JsonNode>> fields = expectedJson.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();
@@ -72,15 +66,8 @@ public class ApiRequestsTest {
     @Test
     public void testPostRawTextRequest() throws IOException, JSONException {
         JsonNode expectedJson = objectMapper.readTree(LoadProperties.readJsonFromFile("expectedResponses.json", "postRawTextResponse"));
-        String requestBody = "This is expected to be sent back as part of response body.";
-        Response response = PostmanApiRequests.sendPostRawTextRequest(requestBody);
+        Response response = PostmanApiRequests.sendPostRawTextRequest(rawPostPutPatchRequestBody);
         JsonNode actualJson = objectMapper.readTree(response.getBody().asString());
-        SoftAssert softAssert = new SoftAssert();
-        Set<String> dynamicFields = new HashSet<>();
-        dynamicFields.add("x-forwarded-proto");
-        dynamicFields.add("x-amzn-trace-id");
-        dynamicFields.add("postman-token");
-        dynamicFields.add("x-request-start");
         Iterator<Map.Entry<String, JsonNode>> fields = expectedJson.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();
@@ -100,15 +87,8 @@ public class ApiRequestsTest {
     @Test
     public void testPutRequest() throws IOException, JSONException {
         JsonNode expectedJson = objectMapper.readTree(LoadProperties.readJsonFromFile("expectedResponses.json", "putResponse"));
-        String requestBody = "This is expected to be sent back as part of response body.";
-        Response response = PostmanApiRequests.sendPutRequest(requestBody);
+        Response response = PostmanApiRequests.sendPutRequest(rawPostPutPatchRequestBody);
         JsonNode actualJson = objectMapper.readTree(response.getBody().asString());
-        SoftAssert softAssert = new SoftAssert();
-        Set<String> dynamicFields = new HashSet<>();
-        dynamicFields.add("x-forwarded-proto");
-        dynamicFields.add("x-amzn-trace-id");
-        dynamicFields.add("postman-token");
-        dynamicFields.add("x-request-start");
         Iterator<Map.Entry<String, JsonNode>> fields = expectedJson.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();
@@ -128,15 +108,8 @@ public class ApiRequestsTest {
     @Test
     public void testPatchRequest() throws IOException, JSONException {
         JsonNode expectedJson = objectMapper.readTree(LoadProperties.readJsonFromFile("expectedResponses.json", "patchResponse"));
-        String requestBody = "This is expected to be sent back as part of response body.";
-        Response response = PostmanApiRequests.sendPatchRequest(requestBody);
+        Response response = PostmanApiRequests.sendPatchRequest(rawPostPutPatchRequestBody);
         JsonNode actualJson = objectMapper.readTree(response.getBody().asString());
-        SoftAssert softAssert = new SoftAssert();
-        Set<String> dynamicFields = new HashSet<>();
-        dynamicFields.add("x-forwarded-proto");
-        dynamicFields.add("x-amzn-trace-id");
-        dynamicFields.add("postman-token");
-        dynamicFields.add("x-request-start");
         Iterator<Map.Entry<String, JsonNode>> fields = expectedJson.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();
@@ -159,12 +132,6 @@ public class ApiRequestsTest {
         JsonNode expectedJson = objectMapper.readTree(LoadProperties.readJsonFromFile("expectedResponses.json", "deleteResponse"));
         Response response = PostmanApiRequests.sendDeleteRequest();
         JsonNode actualJson = objectMapper.readTree(response.getBody().asString());
-        SoftAssert softAssert = new SoftAssert();
-        Set<String> dynamicFields = new HashSet<>();
-        dynamicFields.add("x-forwarded-proto");
-        dynamicFields.add("x-amzn-trace-id");
-        dynamicFields.add("postman-token");
-        dynamicFields.add("x-request-start");
         Iterator<Map.Entry<String, JsonNode>> fields = expectedJson.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();

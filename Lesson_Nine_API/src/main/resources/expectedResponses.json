@@ -1,0 +1,133 @@
+{
+  "getResponseParams": {
+    "args": {
+      "foo1": "bar1",
+      "foo2": "bar2"
+    },
+    "url": "http://postman-echo.com/get?foo1=bar1&foo2=bar2",
+    "headers": {
+      "host": "postman-echo.com",
+      "accept": "*/*"
+    }
+  },
+  "postResponse": {
+    "args": {},
+    "data": "",
+    "files": {},
+    "form": {},
+    "headers": {
+      "host": "postman-echo.com",
+      "x-forwarded-proto": "http",
+      "x-request-start": "t=1723377326.624",
+      "connection": "close",
+      "content-length": "23",
+      "x-forwarded-port": "443",
+      "x-amzn-trace-id": "Root=1-66b8a6ae-3a148c462657b1b02f3d82de",
+      "content-type": "text/plain",
+      "user-agent": "PostmanRuntime/7.40.0",
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "postman-token": "4fa67333-facc-4569-a103-81c03d7b84ef",
+      "accept-encoding": "gzip, deflate, br",
+      "cookie": "sails.sid=s%3AflgUeYPaqZo2lb61KTtatvZv3dh_iRJH.%2FUOdlHRpVt64jHP9T6BbQDzlWSuqYTXCJ8lT47NFTZo"
+    },
+    "json": [],
+    "url": "http://postman-echo.com/post"
+  },
+  "postRawTextResponse": {
+    "args": {},
+    "data": "{\n    \"test\": \"value\"\n}",
+    "files": {},
+    "form": {},
+    "headers": {
+      "host": "postman-echo.com",
+      "x-forwarded-proto": "http",
+      "x-request-start": "t=1234567890.123",
+      "connection": "close",
+      "content-length": "58",
+      "x-forwarded-port": "443",
+      "x-amzn-trace-id": "Root=1-66b8a143-6609492f4d21cb881ce2b17b",
+      "content-type": "text/plain",
+      "user-agent": "PostmanRuntime/7.40.0",
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "postman-token": "52632070-fe73-4923-9590-9a962e00bdab",
+      "accept-encoding": "gzip, deflate, br",
+      "cookie": "sails.sid=s%3AxQdcgOA4CCAMq5Bm-mRQlcXF7EEd5TQX.DEtaCYkGNAz09mNVeLka9dkTCipbFCEdTv9Ae4cKC5o"
+    },
+    "json": null,
+    "url": "http://postman-echo.com/post"
+  },
+  "putResponse": {
+    "args": {},
+    "data": "",
+    "files": {},
+    "form": {},
+    "headers": {
+      "host": "postman-echo.com",
+      "x-forwarded-proto": "http",
+      "x-request-start": "t=1234567890.123",
+      "connection": "close",
+      "content-length": "58",
+      "x-forwarded-port": "443",
+      "x-amzn-trace-id": "Root=1-66b89200-3797c1696f4ab36448a4d58b",
+      "content-type": "text/plain",
+      "user-agent": "PostmanRuntime/7.40.0",
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "postman-token": "52632070-fe73-4923-9590-9a962e00bdab",
+      "accept-encoding": "gzip, deflate, br",
+      "cookie": "sails.sid=s%3AflgUeYPaqZo2lb61KTtatvZv3dh_iRJH.%2FUOdlHRpVt64jHP9T6BbQDzlWSuqYTXCJ8lT47NFTZo"
+    },
+    "json": null,
+    "url": "http://postman-echo.com/put"
+  },
+  "deleteResponse": {
+    "args": {},
+    "data": "",
+    "files": {},
+    "form": {},
+    "headers": {
+      "host": "postman-echo.com",
+      "x-forwarded-proto": "http",
+      "x-request-start": "t=1234567890.123",
+      "connection": "close",
+      "content-length": "58",
+      "x-forwarded-port": "443",
+      "x-amzn-trace-id": "Root=1-66b8a540-127d19d34cc6513651a2f96d",
+      "content-type": "text/plain",
+      "user-agent": "PostmanRuntime/7.40.0",
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "postman-token": "b7edf183-1efa-4395-ac2c-33c599a15718",
+      "accept-encoding": "gzip, deflate, br",
+      "cookie": "sails.sid=s%3AEelGmmwtk-RCAA_2CJZmw6MGrjjzcAcD.jwNCFrOSTcMjF0m3fPTeS0aRN97RKfhvcPQNYYaeuSQ"
+    },
+    "json": null,
+    "url": "http://postman-echo.com/delete"
+  },
+  "patchResponse": {
+    "args": {},
+    "data": "",
+    "files": {},
+    "form": {},
+    "headers": {
+      "host": "postman-echo.com",
+      "x-forwarded-proto": "http",
+      "x-request-start": "t=1234567890.123",
+      "connection": "close",
+      "content-length": "58",
+      "x-forwarded-port": "443",
+      "x-amzn-trace-id": "Root=1-66b8a143-6609492f4d21cb881ce2b17b",
+      "content-type": "text/plain",
+      "user-agent": "PostmanRuntime/7.40.0",
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "postman-token": "52632070-fe73-4923-9590-9a962e00bdab",
+      "accept-encoding": "gzip, deflate, br",
+      "cookie": "sails.sid=s%3AxQdcgOA4CCAMq5Bm-mRQlcXF7EEd5TQX.DEtaCYkGNAz09mNVeLka9dkTCipbFCEdTv9Ae4cKC5o"
+    },
+    "json": null,
+    "url": "http://postman-echo.com/patch"
+  }
+}

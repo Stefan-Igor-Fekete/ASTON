@@ -23,24 +23,24 @@ public class PostmanApiRequests {
         return ApiUtils.getRequest(BASE_URI, GET_WITH_PARAMS_PATH, params);
     }
 
-    public static Response sendPostRequest() {
+    public static Response sendPostRequest(String requestBody) {
         HashMap<String, String> formParams = new HashMap<>();
         formParams.put("foo1", "bar1");
         formParams.put("foo2", "bar2");
         return ApiUtils.postRequest(BASE_URI, POST_REQUEST, formParams, StatusCode.OK_RESPONSE);
     }
 
-    public static Response sendPostRawTextRequest() {
+    public static Response sendPostRawTextRequest(String requestBody) {
         String body = "{\n    \"test\": \"value\"\n}";
         return ApiUtils.postRawTextRequest(BASE_URI, POST_REQUEST, body, StatusCode.OK_RESPONSE);
     }
 
-    public static Response sendPutRequest() {
+    public static Response sendPutRequest(String requestBody) {
         HashMap<String, String> formParams = new HashMap<>();
         return ApiUtils.putRequest(BASE_URI, PUT_REQUEST, formParams, StatusCode.OK_RESPONSE);
     }
 
-    public static Response sendPatchRequest() {
+    public static Response sendPatchRequest(String requestBody) {
         HashMap<String, String> params = new HashMap<>();
         return ApiUtils.patchRequest(BASE_URI, PATCH_REQUEST, params, StatusCode.OK_RESPONSE);
     }

@@ -9,27 +9,34 @@ public class MtsOrderTest extends BaseTest {
     private String servicePage = "Порядок оплаты и безопасность интернет платежей";
     private String phoneNumber = "(29)777-77-77";
     private String moneyAmount = "100.00";
+    SoftAssert softAssert = new SoftAssert();
 
     @DataProvider(name = "logoIndexes")
     public Object[][] logoIndexes() {
-        return new Object[][]{
-                {0}, {1}, {2}, {3}, {4}
-        };
+        int logoCount = mtsMainPage.getPaymentsLogosCount();
+        int[] indexes = new int[logoCount];
+        for (int i = 0; i < logoCount; i++) {
+            indexes[i] = i;
+        }
+        return new Object[][]{{indexes}};
     }
 
     @Name("Преверить название блока: 'Онлайн пополнение без комиссии' ")
     @Test
     public void onlinePAyLabelShownTest() {
-        SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(mtsMainPage.isOnPage(), "Вы не на главной странице сайта МТС");
         softAssert.assertEquals(mtsMainPage.getOnlinePayLabelText(), onlinePayText, "Текст метки 'Онлайн пополнение без комиссии' не совпадает.");
         softAssert.assertAll();
     }
 
-    @Name("проверить наличие логотипов платёжных систем")
+    @Name("Проверить наличие логотипов платёжных систем")
     @Test(dataProvider = "logoIndexes")
-    public void allPaymentsLogoShownTest(int paymentLogosCapacity) {
-        Assert.assertTrue(mtsMainPage.paymentsLogoIsDisplayed(paymentLogosCapacity), "Логотипы платёжным методов не отображаются");
+    public void allPaymentsLogoShownTest(int[] indexes) {
+        for (int index : indexes) {
+            softAssert.assertTrue(mtsMainPage.paymentsLogoIsDisplayed(index),
+                    "Логотип платёжного метода под индексом " + index + " не отображается");
+        }
+        softAssert.assertAll();
     }
 
     @Name("Проверить работу ссылки: 'Подробнее о сервисе' ")

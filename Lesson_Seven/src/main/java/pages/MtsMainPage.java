@@ -50,6 +50,10 @@ public class MtsMainPage extends BasePage {
         String getLabelText = mtsOnlinePayLabel.getTextFrom();
         return StringUtils.lineWithoutHyphenation(getLabelText);
     }
+    public int getPaymentsLogosCount() {
+        List<WebElement> paymentsLogos = findElements(By.xpath(allPaymentsLogos));
+        return paymentsLogos.size();
+    }
 
     public boolean paymentsLogoIsDisplayed(int i) {
         List<WebElement> paymentsLogos = findElements(By.xpath(allPaymentsLogos));

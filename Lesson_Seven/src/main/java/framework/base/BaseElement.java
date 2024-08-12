@@ -57,6 +57,10 @@ public class BaseElement {
         return DriverStart.getInstance().getDriver().findElements(xpath);
     }
 
+    public static int getCountOfWebElements(List<WebElement> lisOfWebElements) {
+        return lisOfWebElements.size();
+    }
+
     public static void switchToFrameByFrameIndexAndWait(int index) {
         WebDriverWait waiter = new WebDriverWait(DriverStart.getInstance().getDriver(), WAIT_TIME);
         waiter.until(driver -> {

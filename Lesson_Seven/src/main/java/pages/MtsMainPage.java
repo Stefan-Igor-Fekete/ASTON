@@ -12,13 +12,13 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static framework.base.BaseElement.findElements;
-import static framework.base.BaseElement.switchToFrameByFrameIndexAndWait;
+import static framework.base.BaseElement.*;
 
 public class MtsMainPage extends BasePage {
     private static String mtsMainPage = "Главная страница МТС";
     private static String allPaymentsLogos = "//div[@class='pay__partners']//img[@src]";
     private int frameIndex = 1;
+    private static List<WebElement> paymentsLogos = findElements(By.xpath(allPaymentsLogos));
     private static Label mtsOnlinePayLabel = new Label(By.xpath("//div[@class='pay__wrapper']//h2"),
             "Поле онлайн платежей");
     private static Label moneyCapacityLabel = new Label(By.xpath("(//div[@class='payment-page__order-description pay-description']//span)[1]"),
@@ -50,13 +50,11 @@ public class MtsMainPage extends BasePage {
         String getLabelText = mtsOnlinePayLabel.getTextFrom();
         return StringUtils.lineWithoutHyphenation(getLabelText);
     }
-    public int getPaymentsLogosCount() {
-        List<WebElement> paymentsLogos = findElements(By.xpath(allPaymentsLogos));
-        return paymentsLogos.size();
+    public int getCountOfPaymentFields() {
+        return getCountOfWebElements(paymentsLogos);
     }
 
     public boolean paymentsLogoIsDisplayed(int i) {
-        List<WebElement> paymentsLogos = findElements(By.xpath(allPaymentsLogos));
         return paymentsLogos.get(i).isDisplayed();
     }
 

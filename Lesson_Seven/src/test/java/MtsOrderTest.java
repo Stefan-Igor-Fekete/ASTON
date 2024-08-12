@@ -13,7 +13,7 @@ public class MtsOrderTest extends BaseTest {
 
     @DataProvider(name = "logoIndexes")
     public Object[][] logoIndexes() {
-        int logoCount = mtsMainPage.getPaymentsLogosCount();
+        int logoCount = mtsMainPage.getCountOfPaymentFields();
         int[] indexes = new int[logoCount];
         for (int i = 0; i < logoCount; i++) {
             indexes[i] = i;

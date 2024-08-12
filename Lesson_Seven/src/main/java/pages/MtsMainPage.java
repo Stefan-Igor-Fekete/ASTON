@@ -8,24 +8,19 @@ import framework.elements.TextField;
 import framework.enums.MtsPaymentCategory;
 import framework.utils.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
+import static framework.base.BaseElement.findElements;
 import static framework.base.BaseElement.switchToFrameByFrameIndexAndWait;
 
 public class MtsMainPage extends BasePage {
     private static String mtsMainPage = "Главная страница МТС";
+    private static String allPaymentsLogos = "//div[@class='pay__partners']//img[@src]";
     private int frameIndex = 1;
     private static Label mtsOnlinePayLabel = new Label(By.xpath("//div[@class='pay__wrapper']//h2"),
             "Поле онлайн платежей");
-    private static Label visaPaymentLabel = new Label(By.xpath("//img[@alt='Visa']"),
-            "Visa платёжный лейбл");
-    private static Label visaVerifiedPaymentLabel = new Label(By.xpath("//img[@alt='Verified By Visa']"),
-            "Visa verified платёжный лейбл");
-    private static Label masterCardPaymentLabel = new Label(By.xpath("//div[@class='pay__partners']//img[@alt='MasterCard']"),
-            "MasterCard платёжный лейбл");
-    private static Label masterCardSecureCodePaymentLabel = new Label(By.xpath("//img[@alt='MasterCard Secure Code']"),
-            "MasterCard sequre code платёжный лейбл");
-    private static Label belCardPaymentLabel = new Label(By.xpath("//div[@class='pay__partners']//img[@alt='Белкарт']"),
-            "Bel card  платёжный лейбл");
     private static Label moneyCapacityLabel = new Label(By.xpath("(//div[@class='payment-page__order-description pay-description']//span)[1]"),
             "Количество введённых денег");
     private static TextField depositAmount = new TextField(By.xpath("//input[@id='connection-sum']"),
@@ -56,10 +51,9 @@ public class MtsMainPage extends BasePage {
         return StringUtils.lineWithoutHyphenation(getLabelText);
     }
 
-    public boolean paymentsLogoIsDisplayed() {
-        return belCardPaymentLabel.isDisplayed() && masterCardPaymentLabel.isDisplayed()
-                && masterCardSecureCodePaymentLabel.isDisplayed() &&
-                visaPaymentLabel.isDisplayed() && visaVerifiedPaymentLabel.isDisplayed();
+    public boolean paymentsLogoIsDisplayed(int i) {
+        List<WebElement> paymentsLogos = findElements(By.xpath(allPaymentsLogos));
+        return paymentsLogos.get(i).isDisplayed();
     }
 
     public void clickDetailsButton() {

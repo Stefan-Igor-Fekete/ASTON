@@ -1,5 +1,6 @@
 import jdk.jfr.Name;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -8,6 +9,13 @@ public class MtsOrderTest extends BaseTest {
     private String servicePage = "Порядок оплаты и безопасность интернет платежей";
     private String phoneNumber = "(29)777-77-77";
     private String moneyAmount = "100.00";
+
+    @DataProvider(name = "logoIndexes")
+    public Object[][] logoIndexes() {
+        return new Object[][]{
+                {0}, {1}, {2}, {3}, {4}
+        };
+    }
 
     @Name("Преверить название блока: 'Онлайн пополнение без комиссии' ")
     @Test
@@ -19,9 +27,9 @@ public class MtsOrderTest extends BaseTest {
     }
 
     @Name("проверить наличие логотипов платёжных систем")
-    @Test
-    public void allPaymentsLogoShownTest() {
-        Assert.assertTrue(mtsMainPage.paymentsLogoIsDisplayed(), "Логотипы платёжным методов не отображаются");
+    @Test(dataProvider = "logoIndexes")
+    public void allPaymentsLogoShownTest(int paymentLogosCapacity) {
+        Assert.assertTrue(mtsMainPage.paymentsLogoIsDisplayed(paymentLogosCapacity), "Логотипы платёжным методов не отображаются");
     }
 
     @Name("Проверить работу ссылки: 'Подробнее о сервисе' ")

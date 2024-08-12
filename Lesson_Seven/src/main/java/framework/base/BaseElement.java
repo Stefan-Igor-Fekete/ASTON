@@ -53,6 +53,10 @@ public class BaseElement {
         return findElement().getText();
     }
 
+    public static List<WebElement> findElements(By xpath) {
+        return DriverStart.getInstance().getDriver().findElements(xpath);
+    }
+
     public static void switchToFrameByFrameIndexAndWait(int index) {
         WebDriverWait waiter = new WebDriverWait(DriverStart.getInstance().getDriver(), WAIT_TIME);
         waiter.until(driver -> {

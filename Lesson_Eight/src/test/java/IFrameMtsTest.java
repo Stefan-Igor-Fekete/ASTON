@@ -1,9 +1,8 @@
 import jdk.jfr.Name;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class IframeMtsTest extends BaseTest {
+public class IFrameMtsTest extends BaseTest {
     private String phoneNumber = "(29)777-77-77";
     private String phoneNumberIframe = "375297777777";
     private String neededAttribute = "placeholder";
@@ -21,7 +20,7 @@ public class IframeMtsTest extends BaseTest {
 
     @Name("Проверить надписи в незаполненных полях каждого варианта оплаты услуг")
     @Test
-    public void firstTaskTest() {
+    public void checkTextInFieldsInAllCategory() {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(mtsMainPage.isOnPage(), "Вы не на главной странице сайта МТС");
         mtsMainPage.chooseCommunicationServiceCategory();
@@ -45,19 +44,19 @@ public class IframeMtsTest extends BaseTest {
 
     @Name("Проверка суммы на кнопке, а так же надписей во всех незаполненных поолях")
     @Test
-    public void fourthTaskTest() {
+    public void checkTextAndPaymentsLogoInAllFields() {
         SoftAssert softAssert = new SoftAssert();
         mtsMainPage.chooseCommunicationServiceCategory();
         mtsMainPage.makeOrderForFillTheBalance(phoneNumber, moneyAmount);
         mtsMainPage.switchToFrame();
-        softAssert.assertEquals(mtsMainPage.getMoneyAmountText(), moneyAmount);
-        softAssert.assertEquals(mtsMainPage.getNumberIframeText(), phoneNumberIframe);
-        softAssert.assertEquals(mtsMainPage.getMoneyFromButton(), moneyAmount);
-        softAssert.assertEquals(mtsMainPage.getTextCreditCardNumber(), cardNumber);
-        softAssert.assertEquals(mtsMainPage.getTextCardDate(), cardDate);
-        softAssert.assertEquals(mtsMainPage.getTextCvcCode(), cvcCode);
-        softAssert.assertEquals(mtsMainPage.getCardOwnerName(), cardOwnerName);
-        softAssert.assertTrue(mtsMainPage.arePaymentsIconsDisplayed());
+        softAssert.assertEquals(mtsMainPage.getMoneyAmountText(), moneyAmount, "Money amount field is incorrect");
+        softAssert.assertEquals(mtsMainPage.getNumberIframeText(), phoneNumberIframe,"User number in field is incorrect");
+        softAssert.assertEquals(mtsMainPage.getMoneyFromButton(), moneyAmount,"Money on the button is incorrect");
+        softAssert.assertEquals(mtsMainPage.getTextCreditCardNumber(), cardNumber,"Card number is incorrect");
+        softAssert.assertEquals(mtsMainPage.getTextCardDate(), cardDate,"Card date is incorrect");
+        softAssert.assertEquals(mtsMainPage.getTextCvcCode(), cvcCode,"CVC-code is incorrect");
+        softAssert.assertEquals(mtsMainPage.getCardOwnerName(), cardOwnerName,"Card owner name is incorrect");
+        softAssert.assertTrue(mtsMainPage.arePaymentsIconsDisplayed(),"Payments logos doesn't shown");
         softAssert.assertAll();
     }
 }

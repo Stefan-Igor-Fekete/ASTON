@@ -49,6 +49,14 @@ public class MtsMainPage extends BasePage {
             "Значки способов оплаты на iFrame");
     private static Label iframeCardHolderName = new Label(By.xpath("//div[@class='content ng-tns-c46-3']"),
             "Текст внутри поля iFrame: Имя держателя (как на карте)");
+    private static Label visaPaymentLabel = new Label(By.xpath("(//img[@class='ng-tns-c61-0 ng-star-inserted'])[1]"),
+            "Visa платёжный лейбл");
+    private static Label masterCardPaymentLabel = new Label(By.xpath("(//img[@class='ng-tns-c61-0 ng-star-inserted'])[2]"),
+            "MasterCard платёжный лейбл");
+    private static Label masterCardAndMirPaymentLabel = new Label(By.xpath("//img[@class='ng-tns-c61-0 ng-trigger ng-trigger-randomCardState ng-star-inserted']"),
+            "MasterCard/Mir  платёжный лейбл");
+    private static Label belCardPaymentLabel = new Label(By.xpath("(//img[@class='ng-tns-c61-0 ng-star-inserted'])[3]"),
+            "Bel card  платёжный лейбл");
     private static TextField depositAmount = new TextField(By.xpath("//input[@id='connection-sum']"),
             "Поле: Сумма");
     private static TextField phoneField = new TextField(By.xpath("//input[@id='connection-phone']"),
@@ -79,23 +87,23 @@ public class MtsMainPage extends BasePage {
     }
 
     public void chooseCommunicationServiceCategory() {
-        categoryPaymentList.waitAndClick();
-        communicationServiceCategory.waitAndClick();
+        categoryPaymentList.waitDisplayedAndClick();
+        communicationServiceCategory.waitDisplayedAndClick();
     }
 
     public void chooseHomeInternetCategory() {
-        categoryPaymentList.waitAndClick();
-        homeInternetCategory.waitAndClick();
+        categoryPaymentList.waitDisplayedAndClick();
+        homeInternetCategory.waitDisplayedAndClick();
     }
 
     public void chooseCreditCategory() {
-        categoryPaymentList.waitAndClick();
-        creditCategory.waitAndClick();
+        categoryPaymentList.waitDisplayedAndClick();
+        creditCategory.waitDisplayedAndClick();
     }
 
     public void chooseDebtCategory() {
-        categoryPaymentList.waitAndClick();
-        debtCategory.waitAndClick();
+        categoryPaymentList.waitDisplayedAndClick();
+        debtCategory.waitDisplayedAndClick();
     }
 
     public String getPhoneNumberLabelText(String attribute) {
@@ -165,7 +173,9 @@ public class MtsMainPage extends BasePage {
     }
 
     public boolean arePaymentsIconsDisplayed() {
-        return iframePaymentsMethod.isDisplayed();
+        return belCardPaymentLabel.isDisplayed() && masterCardPaymentLabel.isDisplayed()
+                && masterCardAndMirPaymentLabel.isDisplayed() &&
+                visaPaymentLabel.isDisplayed();
     }
 
     public String getMoneyAmountText() {

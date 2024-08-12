@@ -16,8 +16,16 @@ public class MtsMainPage extends BasePage {
     private int frameIndex = 1;
     private static Label mtsOnlinePayLabel = new Label(By.xpath("//div[@class='pay__wrapper']//h2"),
             "Поле онлайн платежей");
-    private static Label paymentsLogo = new Label(By.xpath("//div[@class='pay__partners']"),
-            "Поле логотипов платёжных сервисов");
+    private static Label visaPaymentLabel = new Label(By.xpath("//img[@alt='Visa']"),
+            "Visa платёжный лейбл");
+    private static Label visaVerifiedPaymentLabel = new Label(By.xpath("//img[@alt='Verified By Visa']"),
+            "Visa verified платёжный лейбл");
+    private static Label masterCardPaymentLabel = new Label(By.xpath("//div[@class='pay__partners']//img[@alt='MasterCard']"),
+            "MasterCard платёжный лейбл");
+    private static Label masterCardSecureCodePaymentLabel = new Label(By.xpath("//img[@alt='MasterCard Secure Code']"),
+            "MasterCard sequre code платёжный лейбл");
+    private static Label belCardPaymentLabel = new Label(By.xpath("//div[@class='pay__partners']//img[@alt='Белкарт']"),
+            "Bel card  платёжный лейбл");
     private static Label moneyCapacityLabel = new Label(By.xpath("(//div[@class='payment-page__order-description pay-description']//span)[1]"),
             "Количество введённых денег");
     private static TextField depositAmount = new TextField(By.xpath("//input[@id='connection-sum']"),
@@ -49,7 +57,9 @@ public class MtsMainPage extends BasePage {
     }
 
     public boolean paymentsLogoIsDisplayed() {
-        return paymentsLogo.isDisplayed();
+        return belCardPaymentLabel.isDisplayed() && masterCardPaymentLabel.isDisplayed()
+                && masterCardSecureCodePaymentLabel.isDisplayed() &&
+                visaPaymentLabel.isDisplayed() && visaVerifiedPaymentLabel.isDisplayed();
     }
 
     public void clickDetailsButton() {

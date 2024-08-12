@@ -11,7 +11,7 @@ public class MtsOrderTest extends BaseTest {
 
     @Name("Преверить название блока: 'Онлайн пополнение без комиссии' ")
     @Test
-    public void firstTaskTest() {
+    public void onlinePAyLabelShownTest() {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(mtsMainPage.isOnPage(), "Вы не на главной странице сайта МТС");
         softAssert.assertEquals(mtsMainPage.getOnlinePayLabelText(), onlinePayText, "Текст метки 'Онлайн пополнение без комиссии' не совпадает.");
@@ -20,20 +20,20 @@ public class MtsOrderTest extends BaseTest {
 
     @Name("проверить наличие логотипов платёжных систем")
     @Test
-    public void secondTaskTest() {
+    public void allPaymentsLogoShownTest() {
         Assert.assertTrue(mtsMainPage.paymentsLogoIsDisplayed(), "Логотипы платёжным методов не отображаются");
     }
 
     @Name("Проверить работу ссылки: 'Подробнее о сервисе' ")
     @Test
-    public void thirdTaskTest() {
+    public void isServiceLinkWorkedTest() {
         mtsMainPage.clickDetailsButton();
         Assert.assertEquals(servicesInformationPage.getServiceLabelText(), servicePage);
     }
 
     @Name("Заполнить поля и проверить работу кнопки продолжить")
     @Test
-    public void fourthTaskTest() {
+    public void checkSubmitButtonWorkTest() {
         mtsMainPage.chooseNeededCategory();
         mtsMainPage.makeOrderForFillTheBalance(phoneNumber, moneyAmount);
         mtsMainPage.switchToFrame();

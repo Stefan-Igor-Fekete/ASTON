@@ -6,13 +6,15 @@ import framework.elements.DropDownList;
 import framework.elements.Label;
 import framework.elements.TextField;
 import framework.enums.MtsPaymentCategory;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 
 import static framework.base.BaseElement.switchToFrameByFrameIndexAndWait;
 
 public class MtsMainPage extends BasePage {
     private static String mtsMainPage = "Главная страница МТС";
-    private int frameIndex = 1;
     private static Label moneyCapacityIframeLabel = new Label(By.xpath("(//div[@class='payment-page__order-description pay-description']//span)[1]"),
             "Количество введённых денег на панели iFrame");
     private static Label clientNumberIframeLabel = new Label(By.xpath("//div[@class='pay-description__text']"),
@@ -25,13 +27,17 @@ public class MtsMainPage extends BasePage {
             "Текст внутри поля: Сумма");
     private static Label emailAdressCreditLabel = new Label(By.xpath("//input[@id='instalment-email']"),
             "Текст внутри поля: E-mail для отправки чека");
-    private static Label depositAmountLabel = new Label(By.xpath("//input[@id='connection-sum']"),
+    private static Label depositAmountLabel = new Label(By.xpath("//div[@class='pay__form']//input[@class='total_rub']"),
             "Текст внутри поля: Сумма");
-    private static Label depositAmountDebtLabel = new Label(By.xpath("//input[@id='instalment-sum']"),
+    private static Label depositAmountHomeInternetLabel = new Label(By.xpath("//input[@id='internet-sum']"),
+            "Check");
+    private static Label depositAmountDebtLabel = new Label(By.xpath("//input[@id='arrears-sum']"),
             "Текст внутри поля: Сумма");
-    private static Label emailAdressDebtLabel = new Label(By.xpath("//input[@id='instalment-email']"),
+    private static Label emailAdressDebtLabel = new Label(By.xpath("//div[@class='pay__form']//input[@id='arrears-email']"),
             "Текст внутри поля: E-mail для отправки чека");
-    private static Label emailAdressLabel = new Label(By.xpath("//input[@id='connection-email']"),
+    private static Label emailAdressLabel = new Label(By.xpath("//div[@class='pay__form']//input[@id='internet-email']"),
+            "Текст внутри поля: E-mail для отправки чека");
+    private static Label emailAdressServiceLabel = new Label(By.xpath("//div[@class='pay__form']//input[@id='connection-email']"),
             "Текст внутри поля: E-mail для отправки чека");
     private static Label subscriberPhoneLabel = new Label(By.xpath("//input[@id='internet-phone']"),
             "Текст внутри поля: E-mail для отправки чека");
@@ -45,8 +51,6 @@ public class MtsMainPage extends BasePage {
             "Текст внутри поля в iFrame: Срок действия");
     private static Label iframeCvcCard = new Label(By.xpath("//div[@class='content ng-tns-c46-5']"),
             "Текст внутри поля в iFrame: CVC");
-    private static Label iframePaymentsMethod = new Label(By.xpath("//div[@class='cards-brands ng-tns-c46-1']"),
-            "Значки способов оплаты на iFrame");
     private static Label iframeCardHolderName = new Label(By.xpath("//div[@class='content ng-tns-c46-3']"),
             "Текст внутри поля iFrame: Имя держателя (как на карте)");
     private static Label visaPaymentLabel = new Label(By.xpath("(//img[@class='ng-tns-c61-0 ng-star-inserted'])[1]"),
@@ -81,113 +85,155 @@ public class MtsMainPage extends BasePage {
     public MtsMainPage() {
         super(mtsOnlinePayLabel, mtsMainPage);
     }
-
+    @Step("Нажать на кнопку принятие Cookie")
     public void clickCookiesButton() {
-        cookieOkButton.waitDisplayedAndClick();
+        try {
+            cookieOkButton.waitDisplayedAndClick();
+        } catch (NoSuchElementException e) {
+            System.out.println("Окно с куками не отображается.");
+        } catch (TimeoutException e) {
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("Произошла ошибка при попытке нажать на кнопку куки: " + e.getMessage());
+        }
     }
 
+    @Step("Выбрать категорию 'Услуги связи'")
     public void chooseCommunicationServiceCategory() {
         categoryPaymentList.waitDisplayedAndClick();
         communicationServiceCategory.waitDisplayedAndClick();
     }
 
+    @Step("Получить текст из поля: Номер телефона, в категории: Услуги связи ")
+    public String getPhoneNumberLabelText(String attribute) {
+        return phoneNumberLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: Сумма для услуги, в категории: Услуги связи")
+    public String getDepositAmountServiceLabelText(String attribute) {
+        return depositAmountLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: E-mail для услуги, в категории: Услуги связи")
+    public String getEmailLabelText(String attribute) {
+        return emailAdressServiceLabel.getAttribute(attribute);
+    }
+
+    @Step("Выбрать категорию 'Домашний интернет'")
     public void chooseHomeInternetCategory() {
         categoryPaymentList.waitDisplayedAndClick();
         homeInternetCategory.waitDisplayedAndClick();
     }
 
+    @Step("Получить текст из поля: Номер телефона, в категории: Домашний интернет ")
+    public String getSubscriberPhoneText(String attribute) {
+        return subscriberPhoneLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: Сумма для услуги, в категории: Домашний интернет")
+    public String getDepositAmountLabelText(String attribute) {
+        return depositAmountHomeInternetLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: E-mail для услуги, в категории: Домашний интернет")
+    public String getEmailHomeInternetText(String attribute) {
+        return emailAdressLabel.getAttribute(attribute);
+    }
+
+    @Step("Выбрать категорию 'Рассрочка'")
     public void chooseCreditCategory() {
         categoryPaymentList.waitDisplayedAndClick();
         creditCategory.waitDisplayedAndClick();
     }
 
+    @Step("Получить текст из поля: Номер договора на 44, в категории: Рассрочка ")
+    public String getSubscriberCreditText(String attribute) {
+        return subscriberCreditLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: Сумма, в категории: Рассрочка ")
+    public String getDepositAmountCreditLabelText(String attribute) {
+        return depositAmountCreditLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: E-mail для услуги, в категории: Рассрочка")
+    public String getEmailCreditLabelText(String attribute) {
+        return emailAdressCreditLabel.getAttribute(attribute);
+    }
+
+    @Step("Выбрать категорию 'Задолженность'")
     public void chooseDebtCategory() {
         categoryPaymentList.waitDisplayedAndClick();
         debtCategory.waitDisplayedAndClick();
     }
 
-    public String getPhoneNumberLabelText(String attribute) {
-        return phoneNumberLabel.getAttribute(attribute);
-    }
-
-    public String getDepositAmountLabelText(String attribute) {
-        return depositAmountLabel.getAttribute(attribute);
-    }
-
-    public String getDepositAmountCreditLabelText(String attribute) {
-        return depositAmountCreditLabel.getAttribute(attribute);
-    }
-
-    public String getDepositAmountDebtLabelText(String attribute) {
-        return depositAmountDebtLabel.getAttribute(attribute);
-    }
-
-    public String getEmailLabelText(String attribute) {
-        return emailAdressLabel.getAttribute(attribute);
-    }
-
-    public String getEmailCreditLabelText(String attribute) {
-        return emailAdressCreditLabel.getAttribute(attribute);
-    }
-
-    public String getEmailDebtLabelText(String attribute) {
-        return emailAdressDebtLabel.getAttribute(attribute);
-    }
-
-    public String getSubscriberPhoneText(String attribute) {
-        return subscriberPhoneLabel.getAttribute(attribute);
-    }
-
-    public String getSubscriberCreditText(String attribute) {
-        return subscriberCreditLabel.getAttribute(attribute);
-    }
-
+    @Step("Получить текст из поля: Номер счёта на 2073, в категории: Задолженность ")
     public String getSubDebtText(String attribute) {
         return subDebtLabel.getAttribute(attribute);
     }
 
+    @Step("Получить текст из поля: Сумма, в категории: Задолженность")
+    public String getDepositAmountDebtLabelText(String attribute) {
+        return depositAmountDebtLabel.getAttribute(attribute);
+    }
+
+    @Step("Получить текст из поля: E-mail для услуги, в категории: Задолженность")
+    public String getEmailDebtLabelText(String attribute) {
+        return emailAdressDebtLabel.getAttribute(attribute);
+    }
+
+    @Step("Заполнить поля в соответствии с выданными реквизитами")
     public void makeOrderForFillTheBalance(String phoneNumber, String moneyAmount) {
         phoneField.sendText(phoneNumber);
         depositAmount.sendText(moneyAmount);
         continueButton.waitAndClick();
     }
 
-    public void switchToFrame() {
+    @Step("Перейти на iframe")
+    public void switchToFrame(int frameIndex) {
         switchToFrameByFrameIndexAndWait(frameIndex);
     }
 
+    @Step("Получить текст из поля: Номер карты ")
     public String getTextCreditCardNumber() {
         return iframeCardNumber.getTextFrom();
     }
 
+    @Step("Получить текст из поля: Срок действия ")
     public String getTextCardDate() {
         return iframeCardDate.getTextFrom();
     }
 
+    @Step("Получить текст из поля: CVC ")
     public String getTextCvcCode() {
         return iframeCvcCard.getTextFrom();
     }
 
+    @Step("Получить текст из поля: Имя держателя (как на карте) ")
     public String getCardOwnerName() {
         return iframeCardHolderName.getTextFrom();
     }
 
+    @Step("Проверить наличие платёжных логотипов")
     public boolean arePaymentsIconsDisplayed() {
         return belCardPaymentLabel.isDisplayed() && masterCardPaymentLabel.isDisplayed()
                 && masterCardAndMirPaymentLabel.isDisplayed() &&
                 visaPaymentLabel.isDisplayed();
     }
 
+    @Step("Получить сумму пополнения ")
     public String getMoneyAmountText() {
         String abc = moneyCapacityIframeLabel.getTextFrom();
         return abc.replaceAll("[^0-9.]", "");
     }
 
+    @Step("Получить номер клиента оставившего заявку на пополнение")
     public String getNumberIframeText() {
         String abc = clientNumberIframeLabel.getTextFrom();
         return abc.replaceAll("[^0-9.]", "");
     }
 
+    @Step("Получить сумму пополнения с кнопки: Оплатить")
     public String getMoneyFromButton() {
         String abc = iframePayButton.getTextFrom();
         return abc.replaceAll("[^0-9.]", "");

@@ -25,6 +25,7 @@ public class IframeMtsTest extends BaseTest {
     @DataProvider(name = "frameIndices")
     public Object[][] createFrameIndices() {
         return new Object[][]{
+                {0},
                 {1}
         };
     }
